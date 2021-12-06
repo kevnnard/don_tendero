@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <%- include("partials/head") -%>
+    <title>Mi perfil</title>
+</head>
+<body>
+  <%- include("partials/aside") %>
+    <%- include("partials/navigation") %>
+      <section class="container table-sec">
+        <%- include("partials/messages") %>
+          <%- include("partials/errors") %>
+            <h3> Mi perfil</h3>
+            <table>
+              <tr>
+                <th>Nombre</th>
+                <th>cedula</th>
+                <th>Correo</th>
+                <th>Dirección</th>
+              </tr>
+              <tr>
+                <td>
+                  <%= user.name %>
+                </td>
+                <td>
+                  <%= user.cedula %>
+                </td>
+                <td>
+                  <%= user.email %>
+                </td>
+                <td>
+                  <%= user.direccion %>
+                </td>
+              </tr>
+              <tr>
+                <th>Telefono</th>
+                <th>Tienda</th>
+                <th>Nit empresa</th>
+                <th>Contraseña</th>
+              </tr>
+              <tr>
+                <td>
+                  <%= user.telefono %>
+                </td>
+                <td>
+                  <%= user.name_place %>
+                </td>
+                <td>
+                  <%= user.nit %>
+                </td>
+                <td><input disabled type="password" value="<%= user.password %>"></td>
+              </tr>
+            </table>
+            <div style="padding: 30px;">
+              <a href="/users/perfil/<%= user._id%>/edit" style="width: 20%; margin: auto; padding: 15px;" type="button"
+                class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Editar mis datos
+              </a>
+            </div>
+      </section>
+      <%- include("partials/footer") %>
+</body>
+</html>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="exampleModalLabel">Editar Mis datos..</h2>
+        <button style="font-size: 2rem;background: none;border: none;color: #f00;" type="button" class="btn-close"
+          data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <form action="/users/perfil/edit-pro/<%= user._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="_method" value="PUT">
+          <div class="form-group">
+            <fieldset>Nombre</fieldset>
+            <input type="text" name="name" placeholder="Nuevo Nombre" class="form-control" value="<%= user.name%>"
+              required>
+          </div>
+          <div class="form-group">
+            <fieldset>cedula</fieldset>
+            <input type="number" name="cedula" placeholder="Cedula" class="form-control" value="<%= user.cedula%>"
+              required>
+          </div>
+          <div class="form-group">
+            <fieldset>Email</fieldset>
+            <input type="text" name="email" placeholder="Email" class="form-control" value="<%= user.email%>" required>
+          </div>
+          <div class="form-group">
+            <fieldset>Telefono</fieldset>
+            <input type="number" name="telefono" placeholder="Telefono" class="form-control" value="<%= user.telefono%>"
+              required>
+          </div>
+          <div class="form-group">
+            <fieldset>Direccion</fieldset>
+            <input type="text" name="direccion" placeholder="Direccion" class="form-control"
+              value="<%= user.direccion %>" required>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-success btn-block">Actualizar cambios..</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include("partials/head") -%>
+        <title>Producto <%= producto.nombre_producto %></title>
+</head>
+<%- include("partials/navigation") %>
+    <body>
+        <div class="container p-4">
+            <%- include("partials/messages") %>
+                <%- include("partials/errors") %>
+                    <div class="producto">
+                        <div class="imga-body">
+                            <img style="width: 30%; margin: auto; padding: 15px" src="<%= producto.path %>"
+                                class="card-img-top" alt="<%= producto.filename %>">
+                        </div>
+                        <div class="col-sm-9">
+                            <table>
+                                <tr>
+                                    <th>Nombre Producto</th>
+                                    <th>Proveedor</th>
+                                    <th>Stock</th>
+                                    <th>Sku</th>
+                                    <th>Precio /Uni</th>
+                                    <th>Descripcion</th>
+                                    <th>Hace..</th>
+
+                                </tr>
+                                <%- include("../views/partials/messages.ejs") %>
+                                    <tr>
+                                        <td>
+                                            <%= producto.nombre_producto %>
+                                        </td>
+                                        <td>
+                                            <%= producto.proveedor %>
+                                        </td>
+                                        <td>
+                                            <%= producto.stock %>
+                                        </td>
+                                        <td>
+                                            <%= producto.sku %>
+                                        </td>
+                                        <td>$<%= producto.precio_sku_producto %>
+                                        </td>
+                                        <td>
+                                            <%= producto.descripcion %>
+                                        </td>
+                                        <td>
+                                            <%= format(producto.created_at) %>
+                                        </td>
+                                    </tr>
+                            </table>
+                            <div style="padding: 20px; display: flex;">
+                                <% if (user) { %>
+                                    <a style="width: 20%; margin: auto; padding: 15px;"
+                                        href="/inventario/<%= producto._id%>/delete" class="btn btn-danger btn-block">
+                                        Borrar Producto
+                                    </a>
+                                    <% } %>
+                                        <a style="width: 20%; margin: auto; padding: 15px;" href="<%= producto.path%>"
+                                            class="btn btn-success btn-block" download target="_blanck">
+                                            Descargar Imagen
+                                        </a>
+                                        <!-- <a style="width: 20%; margin: auto; padding: 15px;"
+                                href="/inventario/<%= producto._id%>/edit" class="btn btn-danger btn-block">
+                                Editar producto
+                            </a> -->
+                                        <!-- Button trigger modal -->
+                                        <a href="/inventario/<%= producto._id%>/edit"
+                                            style="width: 20%; margin: auto; padding: 15px;" type="button"
+                                            class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">
+                                            Editar producto
+                                        </a>
+                                        <a style="width: 20%; margin: auto; padding: 15px;" href="/inventario"
+                                            class="btn btn-primary btn-block">
+                                            Volver
+                                        </a>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+        <%- include("partials/footer") %>
+ </body>
+</html>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="exampleModalLabel">Editar producto ..</h2>
+                <button style="font-size: 2rem;background: none;border: none;color: #f00;" type="button"
+                    class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form action="/inventario/edit-pro/<%= producto._id%>?_method=PUT" method="POST"
+                    enctype="multipart/form-data">
+                    <input type="hidden" name="_method" value="PUT">
+                    <!-- <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" name="image" class="" id="inputGroupFile02"  for="inputGroupFile02" aria-describedby="inputGroupFileAddon02" value="<%= producto.path%>">
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <fieldset>Nombre de Producto</fieldset>
+                        <input type="text" name="nombre_producto" placeholder="Nombre del Producto" class="form-control"
+                            value="<%= producto.nombre_producto%>" required>
+                    </div>
+                    <div class="form-group">
+                        <fieldset>Proveedor</fieldset>
+                        <input type="text" name="proveedor" placeholder="Proveedor" class="form-control"
+                            value="<%= producto.proveedor%>" required>
+                    </div>
+                    <div class="form-group">
+                        <fieldset>Stock disponible</fieldset>
+                        <input type="number" name="stock" placeholder="Inventario disponible" class="form-control"
+                            value="<%= producto.stock%>" required>
+                    </div>
+                    <div class="form-group">
+                        <fieldset>Sku o indentificador Unico</fieldset>
+                        <input type="number" id="sku" name="sku" placeholder="Sku o Identificador Unico"
+                            class="form-control" value="<%= producto.sku%>" required>
+                    </div>
+                    <div class="form-group">
+                        <fieldset>Precio por producto</fieldset>
+                        <input type="number" name="precio_sku_producto" placeholder="Precio por producto"
+                            class="form-control" value="<%= producto.precio_sku_producto%>" required>
+                    </div>
+                    <div class="form-group">
+                        <fieldset>Descripcion</fieldset>
+                        <textarea name="descripcion" class="form-control" value="<%= producto.descripcion%>"
+                            required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success btn-block">Actualizar cambios..</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
+    <link rel="stylesheet" href="style.css">
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <% if (user) { %>
+<body>
+  <div class="sidebar close"> 
+    <div class="logo-details">
+      
+      <i class='bx bxl-c-plus-plus'></i>
+      <div>
+        <i style="font-size: 3rem;" class='bx bx-menu' ></i>
+    </div> 
+      <!-- <span class="logo_name">CodingLab</span> -->
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="/">
+          <i class='bx bx-grid-alt' ></i>
+          <span class="link_name">Inicio</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="/">Inicio</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/ventas">
+          <i class='bx bx-line-chart' ></i>
+          <span class="link_name">Crear una Venta</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="/ventas">Crear una Venta</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="">
+            <i class='bx bx-collection' ></i>
+            <span class="link_name">Productos</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="">Productos</a></li>
+          <li><a href="/inventario">Ver mi Inventario</a></li>
+          <li><a href="/upload">Subir Inventario</a></li>
+          <!-- <li><a href="#">PHP & MySQL</a></li> -->
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="#">
+            <i class='bx bx-book-alt' ></i>
+            <span class="link_name">Clientes</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="/clientes">Clientes</a></li>
+          <li><a href="/clientes">Ver mis Clientes</a></li>
+          <!-- <li><a href="#">Login Form</a></li> -->
+          <!-- <li><a href="#">Card Design</a></li> -->
+        </ul>
+      </li>
+      <li>
+        <a href="/reportes">
+          <i class='bx bx-pie-chart-alt-2' ></i>
+          <span class="link_name">Reportes</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="/reportes">Reportes</a></li>
+        </ul>
+      </li>
+      <li>
+        <div class="iocn-link">
+          <a href="">
+            <i class='bx bx-plug' ></i>
+            <span class="link_name">Usuario</span>
+          </a>
+          <i class='bx bxs-chevron-down arrow' ></i>
+        </div>
+        <ul class="sub-menu">
+          <li><a class="link_name" href="">Usuario</a></li>
+          <li><a href="/users/perfil">Mi perfil</a></li>
+          <% if (user.email === process.env.EMAIL_ADMIN) { %>
+          <li><a href="/users/signup">Registrar Usuario</a></li>
+          <% } %>
+          <!-- <li><a href="#">Box Icons</a></li> -->
+        </ul>
+      </li>
+      <li>
+        <a href="/about">
+          <i class='bx bx-compass' ></i>
+          <span class="link_name">Sobre Don Tendero</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="/about">Sobre Don Tendero</a></li>
+        </ul>
+      </li>
+      <!-- <li>
+        <a href="#">
+          <i class='bx bx-history'></i>
+          <span class="link_name">History</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="#">History</a></li>
+        </ul>
+      </li> -->
+      <li>
+        <a href="/contacto">
+          <i class='bx bx-cog' ></i>
+          <span class="link_name">¡Ayuda!</span>
+        </a>
+        <ul class="sub-menu blank">
+          <li><a class="link_name" href="/contacto">¡Ayuda!</a></li>
+        </ul>
+      </li>
+      <li>
+    <div class="profile-details">
+      <div class="profile-content">
+        <!-- <img src="../../assets/img/logo_2.png" alt="profileImg"> -->
+      </div>
+      <div class="name-job">
+        <div class="profile_name"><%= user.name %></div>
+        <div class="job">Cerrar Sesión</div>
+      </div>
+      <a href="/users/logout"><i class='bx bx-log-out' ></i></a>
+    </div>
+  </li>
+</ul>
+  </div>
+
+  <script>
+  let arrow = document.querySelectorAll(".arrow");
+  for (var i = 0; i < arrow.length; i++) {
+    arrow[i].addEventListener("click", (e)=>{
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+   arrowParent.classList.toggle("showMenu");
+    });
+  }
+  let sidebar = document.querySelector(".sidebar");
+  let sidebarBtn = document.querySelector(".bx-menu");
+  console.log(sidebarBtn);
+  sidebarBtn.addEventListener("click", ()=>{
+    sidebar.classList.toggle("close");
+  });
+  </script>
+</body>
+<% } %>
+</html>

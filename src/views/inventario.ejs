@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Images</title>
+  <%- include("partials/head") -%>
+</head>
+<%- include("partials/navigation") %>
+
+  <body>
+    <%- include("partials/aside") %>
+      <script>
+        let num = 0;
+        let num1 = 0;
+      </script>
+      <div class="container p-3">
+
+        <div class="row grid-mobile">
+
+          <div class="container grid-mobile-cards">
+
+            <div style="background-color: #008f39;" class="card">
+              <h2> Articulos en inventario </h2>
+
+              <span> Cantidad : (
+                <% producto.forEach(function (producto) { %>
+                  <script>
+                    num1++
+                    var result = [num1]
+                  </script>
+                  <% }) %>
+
+                    <script>
+                      document.write(result[0])
+                      console.log(result)
+                    </script>
+                    )
+              </span>
+            </div>
+            <div style="background-color: #f00" class="card">
+              <h2> Articulos disponibles </h2>
+              <span> Cantidad : </span>
+            </div>
+            <div style="background-color: #2427bd;" class="card">
+              <% if (user) { %>
+                <form action="/buscar" method="GET" class="d-flex">
+                  <input class="form-control me-5" id="search" type="search" name="search" placeholder="Buscar Sku"
+                    aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+                <% } %>
+            </div>
+
+          </div>
+
+          <div class="col-sm-9">
+            <table>
+              <tr>
+                <th></th>
+                <th>Producto</th>
+                <th>Nombre Producto</th>
+                <th>Proveedor</th>
+                <th>Stock</th>
+                <th>Sku</th>
+                <th>Precio /Uni</th>
+
+              </tr>
+              <%- include("../views/partials/messages.ejs") %>
+                <% producto.forEach(function (producto) { %>
+                  <tr>
+                    <td id="numero">
+                      <script>
+                        num++
+                        document.write(num)
+                      </script>
+                    </td>
+                    <td class="img-inv"><img src="<%= producto.path %>" class="card-img-top"
+                        alt="<%= producto.filename %>"></td>
+                    <td>
+                      <%= producto.nombre_producto %>
+                    </td>
+                    <td>
+                      <%= producto.proveedor %>
+                    </td>
+                    <td>
+                      <%= producto.stock %>
+                    </td>
+                    <td>
+                      <%= producto.sku %>
+                    </td>
+                    <td>$<%= producto.precio_sku_producto %>
+                    </td>
+                    <td> <a href="/inventario/<%= producto._id %>" class="btn btn-primary">
+                        Ver Producto
+                      </a></td>
+                  </tr>
+                  <% }) %>
+            </table>
+            <h1 style="color: #f00; padding: 25px; text-transform: uppercase;" id="zero"></h1>
+            <script>
+              if (num == 0 || num1 == 0) {
+                document.getElementById("zero").innerHTML = "No tienes productos en inventario";
+              }
+            </script>
+          </div>
+
+        </div>
+      </div>
+
+      <%- include("partials/footer") %>
+
+  </body>
+
+</html>

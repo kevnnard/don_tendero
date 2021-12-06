@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Images</title>
+    <%- include("partials/head") -%>
+</head>
+<%- include("partials/aside") %>
+<%- include("partials/navigation") %>
+<body>
+    <div class="container p-3"> 
+    <%- include("partials/messages.ejs") %>   
+        <div class="row grid-mobile">
+            <div class="col-sm-9">
+                
+                    <div class="card-header">
+                    <h2>  Registrar una nueva venta </h2>
+                    </div>
+                      <form class="form-venta" action="/ventas" method="POST">
+                        <div class="form-group">
+                          <input type="text" class="" name="name_cli" placeholder="Nombre" value="">
+                        </div>
+                        <div class="form-group">
+                          <input type="number" class="" name="cedula_cli" placeholder="cedula" value="">
+                        </div>
+                        <div class="form-group">
+                          <input type="email" class="" name="email_cli" placeholder="Email" value="">
+                        </div>
+                        <div class="form-group">
+                          <input type="phone" class="" name="cel_cli" placeholder="telefono" value="">
+                        </div>
+                        <div class="form-group">
+                          <input type="text" class="" name="direccion_cli" placeholder="direccion" value="">
+                        </div>             
+                        <div class="form-group">
+                          <input type="text" class="" name="producto" placeholder="Producto" value="">
+                        </div>
+                        <button class="btn btn-primary">
+                          Registrar nueva venta
+                        </button>
+                      </form>
+                
+            </div>
+            
+        </div>
+    </div>
+
+    <%- include("partials/footer") %>
+
+</body>
+
+</html>

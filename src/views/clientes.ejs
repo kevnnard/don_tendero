@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <%- include("partials/head") -%>
+    <title>Clientes </title>
+</head>
+<%- include("partials/aside") %>
+<%- include("partials/navigation") %>
+<body>
+<section class="container">
+    <h3> Clientes </h3>
+    <table>
+        <tr>
+          <th></th>
+          <th>Nombre</th>
+          <th>cedula</th>
+          <th>Telefono</th>
+          <th>Correo</th>   
+          <th>Dirección</th>
+          <th>Producto</th>
+        </tr>
+        <script>
+            let num = 0;
+        </script>
+        <% venta.forEach(function (venta) { %>
+        <tr>
+          <td id="numero"><script>
+            num++
+            document.write(num)
+        </script></td>
+          <td><%= venta.name_cli %></td>
+          <td><%= venta.cedula_cli %></td>
+          <td id="datas"><%= venta.cel_cli %></td>
+          <td><%= venta.email_cli %></td>
+          <td><%= venta.direccion_cli %></td>
+          <td><%= venta.id_pro%></td>
+        </tr>
+        <% }) %> 
+      </table>
+</section>
+
+<%- include("partials/footer") %>
+
+
+</body>
+</html>
