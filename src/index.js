@@ -13,6 +13,7 @@ require("./config/passport");
 require('./database');
 const passport = require("passport");
 const flash = require("connect-flash");
+const bodyParser = require('body-parser');
 
 // intializations
 
@@ -48,7 +49,11 @@ app.use(
   })
 );
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session({
+  secret: 'dontendero',
+  resave: true,
+  saveUninitialized: true,
+}));
 app.use(flash());
 
 // Global variables

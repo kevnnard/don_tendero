@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const path = require('path');
 const User = require("../models/User");
 const Ventas = require("../models/Ventas");
 const Producto = require("../models/Producto");
@@ -9,6 +8,9 @@ const { model } = require("mongoose");
 const flash = require("connect-flash");
 const { truncate } = require("fs/promises");
 const { isAuthenticated } = require("../helpers/auth");
+
+/* Borrar img */
+const path = require('path');
 const { unlink } = require('fs-extra');
 
 const Chart = require('chart.js');
@@ -48,19 +50,19 @@ router.get('/inventario/:id', isAuthenticated, async (req, res) => {
     res.render('profile', { producto  });
 });
 
-router.get('/inventario/:id/delete',isAuthenticated,  async (req, res) => {
+router.get('/inventario/:id/delete', isAuthenticated,  async (req, res) => {
     const { id } = req.params;
     const productoDeleted = await Producto.findByIdAndDelete(id);
-    await unlink(path.resolve('/img/uploads/' + productoDeleted.path));
+    await unlink(path.resolve('./src/public' + productoDeleted.path));
     req.flash('error_msg', `Producto borrado `);
     res.redirect('/inventario');
 });
 
-router.get('/buscar', isAuthenticated, async (req, res) => {
+router.get('/buscar',   isAuthenticated, async (req, res) => {
         if(req.query.search) {
             const producto = await Producto.find({
                 user: req.user.id,
-                sku: req.query.search,                
+                sku: req.query.search,              
             });
             res.render('buscar', { producto })
         }

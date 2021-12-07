@@ -55,7 +55,7 @@ router.post('/users/signup', async (req,res) => {
         errors.push('La contraseña debe ser mayor a 4 caracteres');
     }
     if (errors.length > 0) {
-        res.render('users/signup', {errors, name, cedula, email, telefono, direccion, name_place, nit, password, confirm_password});
+        res.render('users/signup', {errors, name, cedula, email, telefono, direccion, name_place, nit});
     } else {
         const emailUser = await User.findOne({email: email});
         if (emailUser) {
